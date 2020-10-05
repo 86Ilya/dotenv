@@ -74,6 +74,7 @@ Plugin 'chr4/nginx.vim'                 " Nginx
 Plugin 'robbles/logstash.vim'           " logstash
 Plugin 'mtdl9/vim-log-highlighting'     " log highlight
 Plugin 'wakatime/vim-wakatime'
+Plugin 'diepm/vim-rest-console'         " REST API
 
 call vundle#end() " required
 filetype on
@@ -95,6 +96,14 @@ endf
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+" replace TODO->TODO: FIXME->FIXME: 
+func! ReplaceTODO()
+  exe "normal mz"
+  %s/TODO /TODO: /ge
+  %s/FIXME /FIXME: /ge
   exe "normal `z"
 endfunc
 
@@ -124,9 +133,6 @@ nnoremap ' `
 map <C-q> :bd<CR>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
-" remove trailing whitespaces
-nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-"nnoremap <silent> <F7> :!docker exec net640kb_web_1 kill -SIGHUP 9 > /dev/null <CR><CR>
 
 " set list/ set nolist
 set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
@@ -136,6 +142,9 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 map <leader>y "*y
 map <leader>p "*p
 
+" write file
+map w :w<CR>
+
 " higlight current line
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
@@ -143,6 +152,25 @@ Arpeggio nnoremap df :set cursorline! cursorcolumn!<CR>
 
 Arpeggio inoremap jk  <Esc>
 Arpeggio vmap ad :call BashRun()<CR>
+
+
+"=====================================================
+" F1-F12 заменил на сочетания ALT+цифра, например F1 = ALT+1
+"=====================================================
+" Unite settings
+nnoremap 2 :Unite buffer<CR> " browse a list of the currently opened buffers
+" TaskList настройки
+"map <F2> :TaskList<CR> 	   " отобразить список тасков на F2
+" NerdTree
+map 3 :NERDTreeToggle<CR>
+" TagBar настройки
+map 4 :TagbarToggle<CR>
+" remove trailing whitespaces
+nnoremap <silent> 5 :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+"nnoremap <silent> <F7> :!docker exec net640kb_web_1 kill -SIGHUP 9 > /dev/null <CR><CR>
+" GitGutter
+"map <F6> :GitGutterPreviewHunk<CR>
+map 6 :call LastCommitChangesToggle()<CR>
 
 
 "=====================================================
@@ -157,13 +185,15 @@ autocmd BufEnter * silent! lcd %:p:h
 
 set iminsert=0
 set imsearch=0
-highlight lCursor guifg=NONE guibg=Cyan
+"highlight lCursor guifg=NONE guibg=Cyan
 set linespace=5
 set autoread
 
 set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 
 set t_Co=256
@@ -208,27 +238,20 @@ set matchtime=0         " don't blink when matching
 
 " ALE
 let g:ale_enabled = 1
-let g:ale_lint_delay = 3000
+"let g:ale_lint_delay = 500
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
 let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
-" Unite settings
-nnoremap <F2> :Unite buffer<CR> " browse a list of the currently opened buffers
 
 " TagBar настройки
-map <F4> :TagbarToggle<CR>
-
 let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
-" TaskList настройки
-"map <F2> :TaskList<CR> 	   " отобразить список тасков на F2
 
 " NerdTree
-map <F3> :NERDTreeToggle<CR>
 map  <C-l> :tabn<CR>
 map  <C-h> :tabp<CR>
 map  <C-n> :tabnew<CR>
@@ -239,8 +262,6 @@ let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o
 " GitGutter
 set updatetime=100
 map <leader>G :GitGutterLineHighlightsToggle<CR>
-"map <F6> :GitGutterPreviewHunk<CR>
-map <F6> :call LastCommitChangesToggle()<CR>
 
 " Jedi-vim
 let g:jedi#show_call_signatures = 1 " Show call signatures
@@ -304,6 +325,7 @@ autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
 \ formatoptions+=croq softtabstop=4 smartindent
 \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd BufWrite *.py :call ReplaceTODO() " tempory
 autocmd BufWrite *.py :call DeleteTrailingWS()
 let g:syntastic_python_checkers = ['flake8', 'python']
 let g:syntastic_python_flake8_args='--ignore=E121,E128,E711,E301,E261,E241,E124,E126,E721 --max-line-length=80'
