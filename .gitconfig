@@ -1,0 +1,12 @@
+[user]
+	email = ilya.aurov@gmail.com
+	name = Ilya
+[alias]
+	dcno = diff --cached --name-only
+	dc = diff --cached
+[core]
+	editor = /home/ilya/.local/bin/vim
+[color "diff"]
+	frag = white
+	commit = red
+	meta = bold blue reverse

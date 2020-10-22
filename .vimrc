@@ -167,7 +167,7 @@ map 3 :NERDTreeToggle<CR>
 map 4 :TagbarToggle<CR>
 " remove trailing whitespaces
 nnoremap <silent> 5 :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-"nnoremap <silent> <F7> :!docker exec net640kb_web_1 kill -SIGHUP 9 > /dev/null <CR><CR>
+nnoremap <silent> 7 :!net640restart.sh <CR><CR>
 " GitGutter
 "map <F6> :GitGutterPreviewHunk<CR>
 map 6 :call LastCommitChangesToggle()<CR>
@@ -240,6 +240,9 @@ set matchtime=0         " don't blink when matching
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
+let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
+let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'
