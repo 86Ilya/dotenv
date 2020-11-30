@@ -9,4 +9,4 @@
 [color "diff"]
 	frag = white
 	commit = red
-	meta = bold blue reverse
+	meta = bold white reverse

@@ -61,6 +61,7 @@ Plugin 'elzr/vim-json'
 " --- SQL ---
 Plugin 'vim-scripts/SQLUtilities'
 Plugin 'vim-scripts/Align'
+Plugin 'exu/pgsql.vim'
 
 "------------------=== Other ===----------------------
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
@@ -239,8 +240,9 @@ set matchtime=0         " don't blink when matching
 " ALE
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'sql':['sqlint']}
+"let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':['/usr/local/bin/pg_format']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--max-line-length=120'
@@ -366,8 +368,11 @@ au BufNewFile,BufRead *.go
     \ set number
 
 " --- SQL ---
-let g:syntastic_sql_checkers = ['sqlint']
-autocmd! BufNewFile,BufReadPre,FileReadPre  *.sql    so ~/.vim/sql.vim
+"let g:syntastic_sql_checkers = ['sqlint']
+"autocmd! BufNewFile,BufReadPre,FileReadPre  *.sql setf sql
+" so ~/.vim/sql.vim
+
+"let g:ale_sql_pgformatter_executable = '/usr/local/bin/pg_format'
 "au BufNewFile,BufRead *.sql
     "\ set tabstop=4 |
     "\ set softtabstop=4 |
