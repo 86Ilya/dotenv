@@ -59,6 +59,7 @@ alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ && docker
 		-v /home/ilya/.local/pgadmin_data/pgadmin:/var/lib/pgadmin \
 		-d --rm dpage/pgadmin4'
 alias swagger='docker run -d -p 8011:8080 swaggerapi/swagger-editor'
+alias psql='docker run -it --rm psql psql'
 
 # my exports
 
