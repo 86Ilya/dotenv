@@ -46,17 +46,25 @@ alias tmux='tmux -2'
 alias ide='tmux neww; tmux split-window; tmux resize-pane -D 10'
 alias activate='[[ -d env ]] && source env/bin/activate 2>/dev/null || [[ -d .venv ]] && source .venv/bin/activate 2>/dev/null'
 alias dprune='docker system prune -f; docker volume prune -f; docker container prune -f'
-alias vim='/home/ilya/.local/bin/vim'
-alias vi='/home/ilya/.local/bin/vim'
-alias psql='/home/ilya/projects/mvideo/experiments/postgresql-13.0/src/bin/psql/psql'
 alias mvideo='ssh iaurov@10.192.2.75'
 alias mip='echo 10.192.2.75'
 alias curltime="curl -w \"@$HOME/.curl_format.txt\" -o NUL -s "
 
+alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ && docker run \
+		-p 5051:80 \
+		-e "PGADMIN_DEFAULT_EMAIL=ilya.aurov@gmail.com" \
+		-e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
+		--name pgadmin \
+		-v /home/ilya/.local/pgadmin_data/servers.json:/pgadmin4/servers.json \
+		-v /home/ilya/.local/pgadmin_data/pgadmin:/var/lib/pgadmin \
+		-d --rm dpage/pgadmin4'
+alias swagger='docker run -d -p 8011:8080 swaggerapi/swagger-editor'
+
 # my exports
 
-export TERM=gnome-256color # fix https://vi.stackexchange.com/questions/27399/whats-t-te-and-t-ti-added-by-vim-8
-export PSQL_EDITOR='/home/ilya/.local/bin/vim'
+# export TERM=gnome-256color # fix https://vi.stackexchange.com/questions/27399/whats-t-te-and-t-ti-added-by-vim-8
+export TERM=xterm-256color
+export PSQL_EDITOR='vim'
 export PATH=$PATH:/home/ilya/.local/bin:/home/ilya/node_modules/.bin/
 
 # Set list of themes to pick from when loading at random

@@ -5,7 +5,7 @@
 	dcno = diff --cached --name-only
 	dc = diff --cached
 [core]
-	editor = /home/ilya/.local/bin/vim
+	editor = vim
 [color "diff"]
 	frag = white
 	commit = red
