@@ -15,10 +15,8 @@ Plugin 'majutsushi/tagbar'              " Class/module browser
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'mileszs/ack.vim'                " Search text in files
-Plugin 'kana/vim-arpeggio'              " Key mappings for simultaneously pressed keys
 "---------------=== Languages support ===-------------
 Plugin 'w0rp/ale' 			" Syntax checking plugin for Vim
-"Plugin 'scrooloose/syntastic'           " Syntax checking plugin for Vim
 Plugin 'mitsuhiko/vim-sparkup'          " Sparkup (XML/jinja/html-django/etc.) support
 Plugin 'scrooloose/nerdcommenter'
 
@@ -41,23 +39,11 @@ Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
 Plugin 'hynek/vim-python-pep8-indent'   " PEP8 indent
 Plugin 'jmcantrell/vim-virtualenv'      " Virtualenv support in VIM
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'heavenshell/vim-pydocstring'
-
-" --- Lisp ---
-Plugin 'l04m33/vlime', {'rtp': 'vim/'}
-Plugin 'bhurlow/vim-parinfer'
-Plugin 'junegunn/rainbow_parentheses.vim'
-
-" --- Elixir ---
-Plugin 'elixir-editors/vim-elixir'
 
 " --- XML ---
 Plugin 'xni/vim-beautifiers'            " JSON/XML beautifier
 " --- JSON ---
 Plugin 'elzr/vim-json'
-" --- Go ---
-"Plugin 'fatih/vim-go'
-
 " --- SQL ---
 Plugin 'vim-scripts/SQLUtilities'
 Plugin 'vim-scripts/Align'
@@ -66,22 +52,19 @@ Plugin 'exu/pgsql.vim'
 "------------------=== Other ===----------------------
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
 Plugin 'vim-airline/vim-airline-themes' " Themes for vim-airline
-Plugin 'fisadev/FixedTaskList.vim'      " Pending tasks list
-Plugin 'rosenfeld/conque-term'          " Consoles as buffers
+"Plugin 'fisadev/FixedTaskList.vim'      " Pending tasks list
+"Plugin 'rosenfeld/conque-term'          " Consoles as buffers
 Plugin 'tpope/vim-surround'             " Parentheses, brackets, quotes, XML tags, and more
 Plugin 'airblade/vim-gitgutter' 	" GIT
 Plugin 'tpope/vim-fugitive'
 Plugin 'chr4/nginx.vim'                 " Nginx
-Plugin 'robbles/logstash.vim'           " logstash
 Plugin 'mtdl9/vim-log-highlighting'     " log highlight
 Plugin 'wakatime/vim-wakatime'
-Plugin 'diepm/vim-rest-console'         " REST API
 
 call vundle#end() " required
 filetype on
 filetype plugin on
 filetype plugin indent on
-call arpeggio#load()
 
 
 "=====================================================
@@ -149,11 +132,6 @@ map w :w<CR>
 " higlight current line
 hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-Arpeggio nnoremap df :set cursorline! cursorcolumn!<CR>
-
-Arpeggio inoremap jk  <Esc>
-Arpeggio vmap ad :call BashRun()<CR>
-
 
 "=====================================================
 " F1-F12 заменил на сочетания ALT+цифра, например F1 = ALT+1
@@ -241,7 +219,6 @@ set matchtime=0         " don't blink when matching
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'sql':['sqlint']}
-"let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':['/usr/local/bin/pg_format']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
@@ -289,18 +266,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 "=====================================================
 " Languages support
 "=====================================================
-" --- C/C++/C# ---
-autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType cpp setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType cs setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-autocmd FileType c setlocal commentstring=/*\ %s\ */
-autocmd FileType cpp,cs setlocal commentstring=//\ %s
-let c_no_curly_error=1
-let g:syntastic_cpp_include_dirs = ['include', '../include']
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_c_include_dirs = ['include', '../include']
-let g:syntastic_c_compiler = 'clang'
-
+"
 " --- CSS ---
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
@@ -337,14 +303,6 @@ let g:syntastic_python_flake8_args='--ignore=E121,E128,E711,E301,E261,E241,E124,
 let g:pydocstring_doq_path = 'doq'
 let g:pydocstring_template_path = '/home/ilya/.vim/pydoctemplates'
 
-" -- Lisp ---
-let g:syntastic_lisp_checkers = ['sbcl']
-augroup rainbow_lisp
-  autocmd!
-  autocmd FileType lisp,clojure,scheme RainbowParentheses
-augroup END
-
-
 " --- Vim ---
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
@@ -354,34 +312,6 @@ autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-e> <Plug>SparkupExec
 autocmd FileType html,htmljinja,htmldjango imap <buffer> <c-l> <Plug>SparkupNext
 autocmd FileType htmljinja setlocal commentstring={#\ %s\ #}
 let html_no_rendering=1
-"let g:syntastic_html_checkers = []
-
-" --- Go ---
-au BufNewFile,BufRead *.go
-    \ set tabstop=4 |
-    \ set softtabstop=4 |
-    \ set shiftwidth=4 |
-    \ set textwidth=120 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set fileformat=unix |
-    \ set number
-
-" --- SQL ---
-"let g:syntastic_sql_checkers = ['sqlint']
-"autocmd! BufNewFile,BufReadPre,FileReadPre  *.sql setf sql
-" so ~/.vim/sql.vim
-
-"let g:ale_sql_pgformatter_executable = '/usr/local/bin/pg_format'
-"au BufNewFile,BufRead *.sql
-    "\ set tabstop=4 |
-    "\ set softtabstop=4 |
-    "\ set shiftwidth=2 |
-    "\ set textwidth=120 |
-    "\ set expandtab |
-    "\ set autoindent |
-    "\ set fileformat=unix |
-    "\ set number
 
 " --- conf files ---
 au BufNewFile,BufRead *.conf

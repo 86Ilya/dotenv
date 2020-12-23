@@ -1,6 +1,8 @@
 FROM postgres:latest
 ARG wakaapi
 
+WORKDIR /app
+
 RUN apt-get update && apt-get install -y git vim pgformatter
 RUN git clone https://github.com/86Ilya/dotenv.git /tmp/dotenv
 RUN cp /tmp/dotenv/.vimrc /root/

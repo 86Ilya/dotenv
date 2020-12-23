@@ -50,14 +50,15 @@ alias mvideo='ssh iaurov@10.192.2.75'
 alias mip='echo 10.192.2.75'
 alias curltime="curl -w \"@$HOME/.curl_format.txt\" -o NUL -s "
 
-alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ && docker run \
-		-p 5051:80 \
+alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ \
+		&& docker run -p 5051:80 \
 		-e "PGADMIN_DEFAULT_EMAIL=ilya.aurov@gmail.com" \
 		-e "PGADMIN_DEFAULT_PASSWORD=SuperSecret" \
 		--name pgadmin \
 		-v /home/ilya/.local/pgadmin_data/servers.json:/pgadmin4/servers.json \
 		-v /home/ilya/.local/pgadmin_data/pgadmin:/var/lib/pgadmin \
-		-d --rm dpage/pgadmin4'
+		-d --rm dpage/pgadmin4 \
+		&& sleep 3 && sudo chmod -R g+r+x /home/ilya/.local/pgadmin_data'
 alias swagger='docker run -d -p 8011:8080 swaggerapi/swagger-editor'
 alias psql='docker run -it --rm psql psql'
 
