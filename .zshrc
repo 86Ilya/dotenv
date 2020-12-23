@@ -43,7 +43,6 @@ alias _vundleinstall='git clone https://github.com/VundleVim/Vundle.vim.git ~/.v
 alias restartvpn='sudo /etc/init.d/openvpn restart'
 
 alias tmux='tmux -2'
-alias ide='tmux neww; tmux split-window; tmux resize-pane -D 10'
 alias activate='[[ -d env ]] && source env/bin/activate 2>/dev/null || [[ -d .venv ]] && source .venv/bin/activate 2>/dev/null'
 alias dprune='docker system prune -f; docker volume prune -f; docker container prune -f'
 alias mvideo='ssh iaurov@10.192.2.75'
