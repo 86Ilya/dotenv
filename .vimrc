@@ -48,6 +48,8 @@ Plugin 'elzr/vim-json'
 Plugin 'vim-scripts/SQLUtilities'
 Plugin 'vim-scripts/Align'
 Plugin 'exu/pgsql.vim'
+Plugin 'tpope/vim-dadbod'
+Plugin 'kristijanhusak/vim-dadbod-ui'
 
 "------------------=== Other ===----------------------
 Plugin 'vim-airline/vim-airline'        " Lean & mean status/tabline for vim that's light as air
@@ -218,7 +220,7 @@ set matchtime=0         " don't blink when matching
 " ALE
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'sql':['sqlint']}
+let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint'], 'sql':['sqlint']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1

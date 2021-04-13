@@ -59,7 +59,9 @@ alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ \
 		-d --rm dpage/pgadmin4 \
 		&& sleep 3 && sudo chmod -R g+r+x /home/ilya/.local/pgadmin_data'
 alias swagger='docker run -d -p 8011:8080 swaggerapi/swagger-editor'
-alias psql='docker run -it --rm psql psql'
+#alias psql='docker run -it --rm psql psql'
+alias python='python3.8'
+alias _vundleinstall='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
 
 # my exports
 
@@ -134,7 +136,6 @@ source $ZSH/oh-my-zsh.sh
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
 
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -160,3 +161,10 @@ PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magent
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/home/ilya/yandex-cloud/path.bash.inc' ]; then source '/home/ilya/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/ilya/yandex-cloud/completion.zsh.inc' ]; then source '/home/ilya/yandex-cloud/completion.zsh.inc'; fi
+

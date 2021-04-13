@@ -1,6 +1,6 @@
 [user]
-	email = ilya.aurov@gmail.com
-	name = Ilya
+	email = ilya.aurov@mvideo.ru
+	name = Ilya Aurov
 [alias]
 	dcno = diff --cached --name-only
 	dc = diff --cached
@@ -10,3 +10,5 @@
 	frag = white
 	commit = red
 	meta = bold white reverse
+[merge "ours"]
+	driver = true
