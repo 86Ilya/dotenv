@@ -121,7 +121,7 @@ map <C-q> :bd<CR>
 cmap w!! w !sudo tee > /dev/null %
 
 " set list/ set nolist
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+"set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 " set iminsert=0
 " set imsearch=0
 "set timeoutlen=200
