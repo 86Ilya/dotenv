@@ -128,13 +128,17 @@ export PATH=$PATH:/home/ilya/.local/bin:/home/ilya/node_modules/.bin/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker)
+plugins=(git docker git-flow postgres tmux)
 
 source $ZSH/oh-my-zsh.sh
 
 # Enable colors and change prompt:
 autoload -U colors && colors
+autoload -Uz vcs_info
+precmd () { vcs_info }
+setopt prompt_subst
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+PS1="\$vcs_info_msg_0_$PS1"
 
 # User configuration
 

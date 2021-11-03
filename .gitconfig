@@ -4,6 +4,7 @@
 [alias]
 	dcno = diff --cached --name-only
 	dc = diff --cached
+	poh = push origin HEAD
 [core]
 	editor = vim
 [color "diff"]
@@ -12,3 +13,5 @@
 	meta = bold white reverse
 [merge "ours"]
 	driver = true
+[cola]
+	spellcheck = false

@@ -10,6 +10,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'              " let Vundle manage Vundle, required
 "---------=== Code/project navigation ===-------------
 Plugin 'scrooloose/nerdtree'            " A tree explorer plugin for vim
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'Shougo/unite.vim'               " Navigation between buffers and files
 Plugin 'majutsushi/tagbar'              " Class/module browser
 Plugin 'junegunn/fzf'
@@ -153,6 +154,9 @@ nnoremap <silent> 7 :!net640restart.sh <CR><CR>
 "map <F6> :GitGutterPreviewHunk<CR>
 map 6 :call LastCommitChangesToggle()<CR>
 
+" window switch
+nnoremap <silent> <tab> W
+
 
 "=====================================================
 " General settings
@@ -221,10 +225,12 @@ set matchtime=0         " don't blink when matching
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
 let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint'], 'sql':['sqlint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['isort', 'black']}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
-let g:ale_python_flake8_options = '--max-line-length=120'
+let g:ale_python_flake8_options = '--max-line-length=120 ---max-adjustable-complexity 8'
+let g:ale_python_black_options = '-l 120'
+let g:ale_python_isort_options = '--multi-line 3 --trailing-comma --use-parentheses'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -235,10 +241,18 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
 
-" NerdTree
-map  <C-l> :tabn<CR>
-map  <C-h> :tabp<CR>
+" Tabs
+"map  <C-l> :tabn<CR>
+"map  <C-h> :tabp<CR>
 map  <C-n> :tabnew<CR>
+nnoremap th  :tabfirst<CR>
+nnoremap tk  :tabnext<CR>
+nnoremap tj  :tabprev<CR>
+nnoremap tl  :tablast<CR>
+nnoremap tt  :tabedit<Space>
+nnoremap tn  :tabnext<Space>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
 
 " игноррируемые файлы с расширениями
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
