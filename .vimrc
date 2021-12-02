@@ -40,6 +40,7 @@ Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
 Plugin 'hynek/vim-python-pep8-indent'   " PEP8 indent
 Plugin 'jmcantrell/vim-virtualenv'      " Virtualenv support in VIM
 Plugin 'vim-scripts/indentpython.vim'
+Plugin 'petobens/poet-v'                " pipenv & poetry
 
 " --- XML ---
 Plugin 'xni/vim-beautifiers'            " JSON/XML beautifier
@@ -63,6 +64,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'chr4/nginx.vim'                 " Nginx
 Plugin 'mtdl9/vim-log-highlighting'     " log highlight
 Plugin 'wakatime/vim-wakatime'
+Plugin 'mkitt/tabline.vim'              " Tab index
 
 call vundle#end() " required
 filetype on
@@ -225,12 +227,11 @@ set matchtime=0         " don't blink when matching
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
 let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint'], 'sql':['sqlint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['isort', 'black']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['black']}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
-let g:ale_python_flake8_options = '--max-line-length=120 ---max-adjustable-complexity 8'
-let g:ale_python_black_options = '-l 120'
-let g:ale_python_isort_options = '--multi-line 3 --trailing-comma --use-parentheses'
+let g:ale_python_flake8_options = '--max-line-length=79'
+let g:ale_python_black_options = '-l 79'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -315,7 +316,8 @@ autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 s
 autocmd BufWrite *.py :call ReplaceTODO() " tempory
 autocmd BufWrite *.py :call DeleteTrailingWS()
 let g:syntastic_python_checkers = ['flake8', 'python']
-let g:syntastic_python_flake8_args='--ignore=E121,E128,E711,E301,E261,E241,E124,E126,E721 --max-line-length=80'
+"let g:syntastic_python_flake8_args='--ignore=E121,E128,E711,E301,E261,E241,E124,E126,E721 --max-line-length=79'
+let g:syntastic_python_flake8_args='--ignore=F401 --max-line-length=79'
 let g:pydocstring_doq_path = 'doq'
 let g:pydocstring_template_path = '/home/ilya/.vim/pydoctemplates'
 
@@ -339,3 +341,9 @@ au BufNewFile,BufRead *.conf
 
 " --- JSON files ---
 let g:vim_json_syntax_conceal = 0
+
+" --- Pipenv & poetry 
+let g:poetv_executables = ['pipenv', 'poetry']
+let g:poetv_auto_activate = 1
+let g:poetv_statusline_symbol = '@'
+let g:poetv_set_environment = 1
