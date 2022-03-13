@@ -128,7 +128,7 @@ export PATH=$PATH:/home/ilya/.local/bin:/home/ilya/node_modules/.bin/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker git-flow postgres tmux)
+plugins=(git docker git-flow postgres tmux kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -172,3 +172,10 @@ if [ -f '/home/ilya/yandex-cloud/path.bash.inc' ]; then source '/home/ilya/yande
 # The next line enables shell command completion for yc.
 if [ -f '/home/ilya/yandex-cloud/completion.zsh.inc' ]; then source '/home/ilya/yandex-cloud/completion.zsh.inc'; fi
 
+
+export PATH="$HOME/.poetry/bin:$PATH"
+export GOROOT=$HOME/.local/go
+export GOPATH=$HOME/projects/experiments/golang
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+source /home/ilya/yandex-cloud/completion.zsh.inc

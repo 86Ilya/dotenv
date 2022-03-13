@@ -40,7 +40,7 @@ Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
 Plugin 'hynek/vim-python-pep8-indent'   " PEP8 indent
 Plugin 'jmcantrell/vim-virtualenv'      " Virtualenv support in VIM
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'petobens/poet-v'                " pipenv & poetry
+"Plugin 'petobens/poet-v'                " pipenv & poetry
 
 " --- XML ---
 Plugin 'xni/vim-beautifiers'            " JSON/XML beautifier
@@ -65,6 +65,8 @@ Plugin 'chr4/nginx.vim'                 " Nginx
 Plugin 'mtdl9/vim-log-highlighting'     " log highlight
 Plugin 'wakatime/vim-wakatime'
 Plugin 'mkitt/tabline.vim'              " Tab index
+Plugin 'tabnine/YouCompleteMe'
+Plugin 'ctrlpvim/ctrlp.vim' "ctrlp vim
 
 call vundle#end() " required
 filetype on
@@ -87,7 +89,6 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-
 " replace TODO->TODO: FIXME->FIXME: 
 func! ReplaceTODO()
   exe "normal mz"
@@ -226,8 +227,9 @@ set matchtime=0         " don't blink when matching
 " ALE
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
-let g:ale_linters = {'python': ['flake8', 'mypy'], 'javascript': ['eslint'], 'sql':['sqlint']}
-let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['black']}
+let g:ale_linters = {'python': ['flake8', 'pycodestyle', 'mypy', 'pyre', 'pylint'], 'javascript': ['eslint'], 'sql':['sqlint']}
+let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
+"let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['black']}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--max-line-length=79'
@@ -235,10 +237,18 @@ let g:ale_python_black_options = '-l 79'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-" TagBar настройки
+let g:ale_cache_executable_check_failures = 1
+let b:ale_python_flake8_executable = '/home/ilya/.local/bin/flake8'
+let b:ale_python_flake8_use_global = 1
+let b:ale_python_mypy_executable = '/home/ilya/.local/bin/mypy'
+let b:ale_python_mypy_use_global = 1
+
+let b:ale_python_pylint_executable = '/home/ilya/.local/bin/pylint'
+let b:ale_python_pylint_use_global = 1
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap) " TagBar настройки
 let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
 
@@ -343,7 +353,9 @@ au BufNewFile,BufRead *.conf
 let g:vim_json_syntax_conceal = 0
 
 " --- Pipenv & poetry 
-let g:poetv_executables = ['pipenv', 'poetry']
-let g:poetv_auto_activate = 1
-let g:poetv_statusline_symbol = '@'
-let g:poetv_set_environment = 1
+"let g:poetv_executables = ['pipenv', 'poetry']
+"let g:poetv_auto_activate = 0
+"let g:poetv_statusline_symbol = '@'
+"let g:poetv_set_environment = 0
+" --- Tabnine
+let g:ycm_auto_hover = ''
