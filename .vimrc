@@ -65,8 +65,10 @@ Plugin 'chr4/nginx.vim'                 " Nginx
 Plugin 'mtdl9/vim-log-highlighting'     " log highlight
 Plugin 'wakatime/vim-wakatime'
 Plugin 'mkitt/tabline.vim'              " Tab index
-Plugin 'tabnine/YouCompleteMe'
-Plugin 'ctrlpvim/ctrlp.vim' "ctrlp vim
+Plugin 'ctrlpvim/ctrlp.vim'             "ctrlp vim
+Plugin 'sainnhe/gruvbox-material'       " vim colorscheme
+"Plugin 'sainnhe/everforest'             " vim colorscheme
+"Plugin 'vim-scripts/TaskList.vim'
 
 call vundle#end() " required
 filetype on
@@ -186,7 +188,13 @@ let &t_EI = "\e[2 q"
 
 set t_Co=256
 set background=dark
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_disable_italic_comment = 1
+"let g:everforest_disable_italic_comment = 1
+"let g:airline_theme = 'gruvbox_material'
 colorscheme monokai_pro
+"colorscheme everforest
+colorscheme gruvbox-material
 "colorscheme preto
 if &term =~ '256color'
       " disable Background Color Erase (BCE) so that color schemes
@@ -227,13 +235,14 @@ set matchtime=0         " don't blink when matching
 " ALE
 let g:ale_enabled = 1
 "let g:ale_lint_delay = 500
-let g:ale_linters = {'python': ['flake8', 'pycodestyle', 'mypy', 'pyre', 'pylint'], 'javascript': ['eslint'], 'sql':['sqlint']}
+let g:ale_linters = {'python': ['flake8','mypy', 'pyre', 'pylint'], 'javascript': ['eslint'], 'sql':['sqlint']}
 let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter'}
 "let g:ale_fixers = {'javascript': ['prettier'], 'css': ['prettier'], 'sql':'pgformatter', 'python':['black']}
 let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-width 4'
 let g:ale_fix_on_save = 1
-let g:ale_python_flake8_options = '--max-line-length=79'
-let g:ale_python_black_options = '-l 79'
+let g:ale_python_flake8_options = '--max-line-length=88'
+let g:ale_python_black_options = '-l 88'
+let g:ale_python_pylint_options = '--disable=C0111 --max-line-length=88'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
@@ -241,6 +250,8 @@ let g:ale_lint_on_insert_leave = 1
 let g:ale_cache_executable_check_failures = 1
 let b:ale_python_flake8_executable = '/home/ilya/.local/bin/flake8'
 let b:ale_python_flake8_use_global = 1
+let b:ale_python_black_executable = '/home/ilya/.local/bin/black'
+let b:ale_python_black_use_global = 1
 let b:ale_python_mypy_executable = '/home/ilya/.local/bin/mypy'
 let b:ale_python_mypy_use_global = 1
 
@@ -248,7 +259,8 @@ let b:ale_python_pylint_executable = '/home/ilya/.local/bin/pylint'
 let b:ale_python_pylint_use_global = 1
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap) " TagBar настройки
+nmap <silent> <C-j> <Plug>(ale_next_wrap) 
+" TagBar настройки
 let g:tagbar_autofocus = 0 " автофокус на Tagbar при открытии
 
 

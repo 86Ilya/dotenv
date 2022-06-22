@@ -174,6 +174,7 @@ if [ -f '/home/ilya/yandex-cloud/completion.zsh.inc' ]; then source '/home/ilya/
 
 
 export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/projects/experiments/golang
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
