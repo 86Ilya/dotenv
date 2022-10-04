@@ -193,9 +193,7 @@ let g:gruvbox_material_disable_italic_comment = 1
 "let g:everforest_disable_italic_comment = 1
 "let g:airline_theme = 'gruvbox_material'
 colorscheme monokai_pro
-"colorscheme everforest
-colorscheme gruvbox-material
-"colorscheme preto
+"colorscheme gruvbox-material
 if &term =~ '256color'
       " disable Background Color Erase (BCE) so that color schemes
       " render properly when inside 256-color tmux and GNU screen.
@@ -242,6 +240,7 @@ let g:ale_javascript_prettier_options = '--single-quote --print-width 120 --tab-
 let g:ale_fix_on_save = 1
 let g:ale_python_flake8_options = '--max-line-length=88'
 let g:ale_python_black_options = '-l 88'
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 let g:ale_python_pylint_options = '--disable=C0111 --max-line-length=88'
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'normal'

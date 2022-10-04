@@ -60,8 +60,10 @@ alias pgadmin='sudo chown -R 5050:5050 /home/ilya/.local/pgadmin_data/ \
 		&& sleep 3 && sudo chmod -R g+r+x /home/ilya/.local/pgadmin_data'
 alias swagger='docker run -d -p 8011:8080 swaggerapi/swagger-editor'
 #alias psql='docker run -it --rm psql psql'
-alias python='python3.8'
+alias python='python3.9'
 alias _vundleinstall='git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim'
+#alias pgformatter='docker run --rm -a stdin -a stdout -i darold.net/pgformatter -'
+alias pgformatter='docker run --rm -a stdin -a stdout -i darold.net/pgformatter'
 
 # my exports
 
@@ -69,6 +71,7 @@ alias _vundleinstall='git clone https://github.com/VundleVim/Vundle.vim.git ~/.v
 export TERM=xterm-256color
 export PSQL_EDITOR='vim'
 export PATH=$PATH:/home/ilya/.local/bin:/home/ilya/node_modules/.bin/
+export MCFLY_KEY_SCHEME=vim
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
